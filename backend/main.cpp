@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 
+#include "index_builder.h"
+
 int main(int argc, char* argv[]) {
     if (argc < 2) {
         std::cerr << "No input provided" << std::endl;
@@ -15,6 +17,11 @@ int main(int argc, char* argv[]) {
 
     // Output the result (extension will read from stdout)
     std::cout << output << std::endl;
+
+    std::string colName = "weather";
+    IndexBuilder builder(colName);
+
+    builder.build_index(input);
     
     return 0;
 }
