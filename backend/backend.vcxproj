@@ -129,6 +129,7 @@
     <ClCompile Include="file_statistics.cpp" />
     <ClCompile Include="index_builder.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="tokenizer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h" />
@@ -136,6 +137,9 @@
     <ClInclude Include="file_helper.h" />
     <ClInclude Include="file_statistics.h" />
     <ClInclude Include="index_builder.h" />
+    <ClInclude Include="query_exception.h" />
+    <ClInclude Include="token.h" />
+    <ClInclude Include="tokenizer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="input.csv" />
