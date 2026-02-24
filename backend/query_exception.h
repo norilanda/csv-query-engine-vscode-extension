@@ -7,6 +7,11 @@ constexpr char QUERY_EMPTY_ERROR[] = "Query is empty";
 constexpr char INVALID_STRING_LITERAL_ERROR[] = "Invalid string literal";
 constexpr char INVALID_NUMBER_ERROR[] = "Invalid number";
 constexpr char INVALID_DECIMAL_POINT_ERROR[] = "Invalid decimal point found";
+constexpr char MISSING_SELECT_ERROR[] = "Expect SELECT at start";
+constexpr char EXPECT_COLUMN_NAME_ERROR[] = "Expect column name";
+constexpr char MISSING_LIMIT_ERROR[] = "Expect LIMIT keyword";
+constexpr char MISSING_NUMBER_LITERAL_ERROR[] = "Expect number literal";
+constexpr char EXPECT_INTEGER_LITERAL_ERROR[] = "Expect integer number";
 
 
 class QueryException : public std::runtime_error {
@@ -23,5 +28,12 @@ public:
 		: std::runtime_error(message) { }	
 };
 
+// ------------------------------------------------------
+
+class ParserException : public std::runtime_error {
+public:
+	ParserException(const std::string& message)
+		: std::runtime_error(message) { }	
+};
 
 #endif // !QUERY_EXCEPTION_H_

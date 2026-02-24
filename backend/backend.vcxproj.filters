@@ -39,6 +39,9 @@
     <ClCompile Include="tokenizer.cpp">
       <Filter>Source Files\query</Filter>
     </ClCompile>
+    <ClCompile Include="parser.cpp">
+      <Filter>Source Files\query</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="index_builder.h">
@@ -63,6 +66,12 @@
       <Filter>Header Files\query</Filter>
     </ClInclude>
     <ClInclude Include="query_exception.h">
+      <Filter>Header Files\query</Filter>
+    </ClInclude>
+    <ClInclude Include="ast.h">
+      <Filter>Header Files\query</Filter>
+    </ClInclude>
+    <ClInclude Include="parser.h">
       <Filter>Header Files\query</Filter>
     </ClInclude>
   </ItemGroup>

@@ -5,6 +5,7 @@
 #include <map>
 #include <vector>
 #include <tuple>
+#include <variant>
 
 constexpr char STRING_LITERAL_INDICATOR = '\'';
 constexpr char DECIMAL_POINT = '.';
@@ -35,7 +36,11 @@ enum class TokenType
 
 	// Punctuation
     COMMA,           // ,
+	END_OF_FILE,
 };
+
+constexpr char TRUE_LITERAL[] = "TRUE";
+constexpr char FALSE_LITERAL[] = "FALSE";
 
 inline std::map<std::string, TokenType> keywordTokenTypeMap {
 	{ "SELECT", TokenType::SELECT },
@@ -43,8 +48,8 @@ inline std::map<std::string, TokenType> keywordTokenTypeMap {
 	{ "LIMIT", TokenType::LIMIT },
 	{ "AND", TokenType::AND },
 	{ "OR", TokenType::OR },
-	{ "TRUE", TokenType::BOOLEAN },
-	{ "FALSE", TokenType::BOOLEAN },
+	{ TRUE_LITERAL, TokenType::BOOLEAN },
+	{ FALSE_LITERAL, TokenType::BOOLEAN },
 };
 
 inline std::vector<std::tuple<std::string, TokenType>> operatorsTokenTypeList {
@@ -60,16 +65,25 @@ inline std::vector<std::tuple<std::string, TokenType>> operatorsTokenTypeList {
 	{ ">", TokenType::GREATER_THAN },
 };
 
+using TokenValue = std::variant<std::monostate, std::string, double, bool>;
+
 class Token {
 public:
 	const TokenType type;
-	const std::string value;
+	const std::string lexeme;
+	const TokenValue literal; // TODO: check if literal works correctly
 
-	Token(TokenType inputType, std::string&& inputValue)
-		: type(inputType), value(std::move(inputValue)) { }
+	Token(TokenType inputType, std::string&& inputLexeme, TokenValue&& inputLiteral)
+		: type(inputType), lexeme(std::move(inputLexeme)), literal(std::move(inputLiteral)) { }
 
-	Token(TokenType inputType, const std::string& inputValue)
-		: type(inputType), value(inputValue) { }
+	Token(TokenType inputType, const std::string& inputLexeme, const TokenValue& inputLiteral)
+		: type(inputType), lexeme(inputLexeme), literal(inputLiteral) { }
+
+	Token(TokenType inputType, std::string&& inputLexeme)
+		: Token(inputType, std::move(inputLexeme), std::monostate {}) { }
+
+	Token(TokenType inputType, const std::string& inputLexeme)
+		: Token(inputType, inputLexeme, std::monostate {}) { }
 };
 
 #endif // !TOKEN_H_

@@ -45,6 +45,7 @@ std::vector<Token> Tokenizer::retrieve_tokens()
 
     process_token_if_needed();
 
+    tokens_.emplace_back(TokenType::END_OF_FILE, "");
     return tokens_;
 }
 
@@ -153,8 +154,19 @@ inline void Tokenizer::process_letters_token(std::string_view tokenValue)
     });
 
     auto keywordIt = keywordTokenTypeMap.find(uppercaseTokenValue);
-    if (keywordIt != keywordTokenTypeMap.end()) {
-        tokens_.emplace_back(keywordIt->second, std::string(tokenValue));
+    if (keywordIt != keywordTokenTypeMap.end())
+    {
+        if (keywordIt->first == TRUE_LITERAL)
+        {
+            tokens_.emplace_back(keywordIt->second, std::string(tokenValue), true);
+        }
+        else if (keywordIt->first == FALSE_LITERAL)
+        {
+            tokens_.emplace_back(keywordIt->second, std::string(tokenValue), false);
+        }
+        else {
+            tokens_.emplace_back(keywordIt->second, std::string(tokenValue));
+        }
     }
     else {
         tokens_.emplace_back(TokenType::IDENTIFIER, std::string(tokenValue)); 
@@ -170,5 +182,5 @@ inline void Tokenizer::process_digits_token(std::string_view tokenValue)
         throw TokenizerException(INVALID_NUMBER_ERROR);
     }
 
-    tokens_.emplace_back(TokenType::NUMBER, std::string(tokenValue)); 
+    tokens_.emplace_back(TokenType::NUMBER, std::string(tokenValue), number); 
 }
