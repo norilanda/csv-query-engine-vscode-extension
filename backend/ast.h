@@ -26,6 +26,7 @@ struct QueryAST {
 public:
 	bool selectAll = false;
 	std::vector<std::string> columnsToSelect;
+	std::vector<size_t> indicesOfColumnsToSelect;
 	std::unique_ptr<Expression> whereRoot;
 	std::optional<int> limit;
 };

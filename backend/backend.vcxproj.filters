@@ -42,6 +42,9 @@
     <ClCompile Include="parser.cpp">
       <Filter>Source Files\query</Filter>
     </ClCompile>
+    <ClCompile Include="binder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="index_builder.h">
@@ -72,6 +75,12 @@
       <Filter>Header Files\query</Filter>
     </ClInclude>
     <ClInclude Include="parser.h">
+      <Filter>Header Files\query</Filter>
+    </ClInclude>
+    <ClInclude Include="query_executor.h">
+      <Filter>Header Files\query</Filter>
+    </ClInclude>
+    <ClInclude Include="binder.h">
       <Filter>Header Files\query</Filter>
     </ClInclude>
   </ItemGroup>
