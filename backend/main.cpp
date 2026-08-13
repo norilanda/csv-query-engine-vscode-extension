@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 
-#include "index_builder.h"
 #include "tokenizer.h"
 #include "parser.h"
 
@@ -19,11 +18,6 @@ int main(int argc, char* argv[]) {
 
     // Output the result (extension will read from stdout)
     std::cout << output << std::endl;
-
-    std::string colName = "weather";
-    IndexBuilder builder(colName);
-
-    //builder.build_index(input);
 
     // ---------------------------
 

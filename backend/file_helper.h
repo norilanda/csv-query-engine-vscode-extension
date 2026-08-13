@@ -7,7 +7,6 @@
 
 class FileHelper {
 public:
-	static std::string ensure_index_directory_exists(std::string_view csvFilePath);
 	static void create_and_open_file_to_write(std::string_view directoryPath, const std::string& filePath, std::ofstream& outFile);
 };
 

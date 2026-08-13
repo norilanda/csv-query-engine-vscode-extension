@@ -127,8 +127,6 @@
     <ClCompile Include="binder.cpp" />
     <ClCompile Include="common.cpp" />
     <ClCompile Include="file_helper.cpp" />
-    <ClCompile Include="file_statistics.cpp" />
-    <ClCompile Include="index_builder.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="parser.cpp" />
     <ClCompile Include="tokenizer.cpp" />
@@ -139,8 +137,6 @@
     <ClInclude Include="common.h" />
     <ClInclude Include="csv_config.h" />
     <ClInclude Include="file_helper.h" />
-    <ClInclude Include="file_statistics.h" />
-    <ClInclude Include="index_builder.h" />
     <ClInclude Include="parser.h" />
     <ClInclude Include="query_exception.h" />
     <ClInclude Include="query_executor.h" />

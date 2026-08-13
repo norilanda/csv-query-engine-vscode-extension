@@ -24,12 +24,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="index_builder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="file_statistics.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="common.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -47,16 +41,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="index_builder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="csv_config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="file_statistics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="file_helper.h">
