@@ -1,8 +1,12 @@
 #include <iostream>
 #include <string>
 
+#include "file_helper.h"
+#include "csv_config.h"
 #include "tokenizer.h"
 #include "parser.h"
+#include "binder.h"
+#include "query_executor.h"
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
@@ -21,18 +25,38 @@ int main(int argc, char* argv[]) {
 
     // ---------------------------
 
-    std::string queryInput = "SELECT weather WHERE weather = 'sun'";
+    std::string queryInput = "SELECT weather, temperature WHERE weather = 'sun'";
     std::string queryInput1 = "SELECT * LIMIT 1";
+
+    std::string header = "city,weather,temperature";
+	std::string directoryPath = "D:\\Old-Projects\\Charles-University\\csv-query-extension\\backend\\";
+
+	std::ifstream inFile;
+	FileHelper::open_file_to_read(directoryPath, "input.csv", inFile);
+
+	std::ofstream outFile;
+	FileHelper::create_and_open_file_to_write(directoryPath, "output.csv", outFile);
+
+    CsvConfig config;
 
     Tokenizer tokenier(queryInput);
     auto tokens = tokenier.retrieve_tokens();
     Parser parser(tokens);
-    auto ast = parser.parse();
+    QueryAST ast = parser.parse();
+    Binder binder(ast, config, header);
+    binder.bind_column_names_to_column_number();
+    QueryExecutor executor(ast, config, inFile, outFile);
+	executor.run();
+
+	// ---------------------------
 
     Tokenizer tokenier1(queryInput1);
     auto tokens1 = tokenier1.retrieve_tokens();
     Parser parser1(tokens1);
     auto ast1 = parser1.parse();
+    Binder binder1(ast1, config, header);
+    binder1.bind_column_names_to_column_number();
+
     
     return 0;
 }

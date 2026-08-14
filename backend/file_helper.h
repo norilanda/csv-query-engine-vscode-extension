@@ -7,6 +7,7 @@
 
 class FileHelper {
 public:
+	static void open_file_to_read(std::string_view directoryPath, const std::string& filePath, std::ifstream& inFile);
 	static void create_and_open_file_to_write(std::string_view directoryPath, const std::string& filePath, std::ofstream& outFile);
 };
 

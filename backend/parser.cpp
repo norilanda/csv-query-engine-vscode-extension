@@ -43,11 +43,6 @@ void Parser::parseSelect(QueryAST& ast)
     }
 }
 
-void Parser::parseWhere(QueryAST& ast)
-{
-    // TODO
-}
-
 void Parser::parseLimit(QueryAST& ast)
 {
     consume(TokenType::LIMIT, MISSING_LIMIT_ERROR);
@@ -61,4 +56,84 @@ void Parser::parseLimit(QueryAST& ast)
     }
 
     ast.limit = limitLiteral;
+}
+
+void Parser::parseWhere(QueryAST& ast)
+{
+    consume(TokenType::WHERE, MISSING_WHERE_ERROR);
+    ast.whereRoot = parseExpression();
+}
+
+// Routes to the lowest precedence operator (OR)
+std::unique_ptr<Expression> Parser::parseExpression()
+{
+    return parseOr();
+}
+
+// Parses logical OR (Lowest precedence)
+std::unique_ptr<Expression> Parser::parseOr()
+{
+    auto expr = parseAnd();
+
+    while (peek().type == TokenType::OR)
+    {
+        TokenType op = move_next().type;
+        auto right = parseAnd();
+        expr = std::make_unique<BinaryExpression>(std::move(expr), std::move(right), op);
+    }
+
+    return expr;
+}
+
+// Parses logical AND (Medium precedence)
+std::unique_ptr<Expression> Parser::parseAnd()
+{
+    auto expr = parseComparison();
+
+    while (peek().type == TokenType::AND)
+    {
+        TokenType op = move_next().type;
+        auto right = parseComparison();
+        expr = std::make_unique<BinaryExpression>(std::move(expr), std::move(right), op);
+    }
+
+    return expr;
+}
+
+// Parses conditions like =, !=, >, < (Highest precedence operator)
+std::unique_ptr<Expression> Parser::parseComparison()
+{
+    auto expr = parsePrimary();
+
+    while (peek().type == TokenType::EQUALS || 
+           peek().type == TokenType::NOT_EQUALS ||
+           peek().type == TokenType::LESS_THAN ||
+           peek().type == TokenType::GREATER_THAN ||
+           peek().type == TokenType::LESS_EQUAL ||
+           peek().type == TokenType::GREATER_EQUAL)
+    {
+        TokenType op = move_next().type;
+        auto right = parsePrimary();
+        expr = std::make_unique<BinaryExpression>(std::move(expr), std::move(right), op);
+    }
+
+    return expr;
+}
+
+// Parses raw base values (Identifiers and Literals)
+std::unique_ptr<Expression> Parser::parsePrimary()
+{
+    Token token = move_next();
+    
+    if (token.type == TokenType::IDENTIFIER) {
+        return std::make_unique<IdentifierExpression>(token.lexeme);
+    }
+    
+    if (token.type == TokenType::STRING_LITERAL || 
+        token.type == TokenType::NUMBER || 
+        token.type == TokenType::BOOLEAN) {
+        return std::make_unique<LiteralExpression>(token.literal, token.type);
+    }
+    
+    throw ParserException(EXPECT_EXPRESSION_ERROR);
 }

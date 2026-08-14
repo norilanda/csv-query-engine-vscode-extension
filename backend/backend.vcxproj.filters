@@ -37,7 +37,13 @@
       <Filter>Source Files\query</Filter>
     </ClCompile>
     <ClCompile Include="binder.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\query</Filter>
+    </ClCompile>
+    <ClCompile Include="query_executor.cpp">
+      <Filter>Source Files\query</Filter>
+    </ClCompile>
+    <ClCompile Include="ast.cpp">
+      <Filter>Source Files\query</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

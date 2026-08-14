@@ -12,7 +12,10 @@ constexpr char EXPECT_COLUMN_NAME_ERROR[] = "Expect column name";
 constexpr char MISSING_LIMIT_ERROR[] = "Expect LIMIT keyword";
 constexpr char MISSING_NUMBER_LITERAL_ERROR[] = "Expect number literal";
 constexpr char EXPECT_INTEGER_LITERAL_ERROR[] = "Expect integer number";
+constexpr char MISSING_WHERE_ERROR[] = "Expect WHERE keyword";
+constexpr char EXPECT_EXPRESSION_ERROR[] = "Expect expression";
 
+constexpr char INVALID_COLUMN_NAME_ERROR[] = "Column name is not present in the header file";
 
 class QueryException : public std::runtime_error {
 public:
@@ -33,6 +36,14 @@ public:
 class ParserException : public std::runtime_error {
 public:
 	ParserException(const std::string& message)
+		: std::runtime_error(message) { }	
+};
+
+// ------------------------------------------------------
+
+class BinderException : public std::runtime_error {
+public:
+	BinderException(const std::string& message)
 		: std::runtime_error(message) { }	
 };
 

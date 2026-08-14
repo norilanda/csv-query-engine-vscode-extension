@@ -91,7 +91,7 @@ inline void Tokenizer::process_string_literal()
     }
 
     std::string_view stringLiteralValue = input_.substr(nextCharPos, stringLiteralEndPosition - nextCharPos);
-    tokens_.emplace_back(TokenType::STRING_LITERAL, std::string(stringLiteralValue));
+    tokens_.emplace_back(TokenType::STRING_LITERAL, std::string(stringLiteralValue), std::string(stringLiteralValue));
 
     currentPos_ = stringLiteralEndPosition + 1;
 }
@@ -165,7 +165,7 @@ inline void Tokenizer::process_letters_token(std::string_view tokenValue)
             tokens_.emplace_back(keywordIt->second, std::string(tokenValue), false);
         }
         else {
-            tokens_.emplace_back(keywordIt->second, std::string(tokenValue));
+            tokens_.emplace_back(keywordIt->second, std::string(tokenValue), std::string(tokenValue));
         }
     }
     else {

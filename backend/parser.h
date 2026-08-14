@@ -42,6 +42,12 @@ private:
 	void parseSelect(QueryAST& ast);
 	void parseWhere(QueryAST& ast);
 	void parseLimit(QueryAST& ast);
+
+    std::unique_ptr<Expression> parseExpression();
+    std::unique_ptr<Expression> parseOr();
+    std::unique_ptr<Expression> parseAnd();
+    std::unique_ptr<Expression> parseComparison();
+    std::unique_ptr<Expression> parsePrimary();
 };
 
 #endif // !PARSER_H_
