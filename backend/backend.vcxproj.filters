@@ -21,9 +21,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="common.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -77,8 +74,5 @@
     <ClInclude Include="binder.h">
       <Filter>Header Files\query</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="input.csv" />
   </ItemGroup>
 </Project>

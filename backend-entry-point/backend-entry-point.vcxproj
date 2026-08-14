@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{828f8636-eb33-4955-bf5b-01a3f40b1cdd}</ProjectGuid>
-    <RootNamespace>backend</RootNamespace>
+    <ProjectGuid>{2af0a418-4688-419f-bd69-c0063640d814}</ProjectGuid>
+    <RootNamespace>backendentrypoint</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -40,7 +40,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -124,25 +124,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ast.cpp" />
-    <ClCompile Include="binder.cpp" />
-    <ClCompile Include="common.cpp" />
-    <ClCompile Include="file_helper.cpp" />
-    <ClCompile Include="parser.cpp" />
-    <ClCompile Include="query_executor.cpp" />
-    <ClCompile Include="tokenizer.cpp" />
+    <ProjectReference Include="..\backend\backend.vcxproj">
+      <Project>{828f8636-eb33-4955-bf5b-01a3f40b1cdd}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ast.h" />
-    <ClInclude Include="binder.h" />
-    <ClInclude Include="common.h" />
-    <ClInclude Include="csv_config.h" />
-    <ClInclude Include="file_helper.h" />
-    <ClInclude Include="parser.h" />
-    <ClInclude Include="query_exception.h" />
-    <ClInclude Include="query_executor.h" />
-    <ClInclude Include="token.h" />
-    <ClInclude Include="tokenizer.h" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

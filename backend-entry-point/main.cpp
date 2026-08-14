@@ -1,12 +1,13 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 
-#include "file_helper.h"
-#include "csv_config.h"
-#include "tokenizer.h"
-#include "parser.h"
-#include "binder.h"
-#include "query_executor.h"
+#include "../backend/file_helper.h"
+#include "../backend/csv_config.h"
+#include "../backend/tokenizer.h"
+#include "../backend/parser.h"
+#include "../backend/binder.h"
+#include "../backend/query_executor.h"
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
@@ -16,7 +17,7 @@ int main(int argc, char* argv[]) {
     
     std::string input = argv[1];
     
-    // Your CSV processing logic would go here
+    // CSV processing logic would go here
     // For now, simple string manipulation
     std::string output = "processed " + input;
 
@@ -29,7 +30,7 @@ int main(int argc, char* argv[]) {
     std::string queryInput1 = "SELECT * LIMIT 1";
 
     std::string header = "city,weather,temperature";
-	std::string directoryPath = "D:\\Old-Projects\\Charles-University\\csv-query-extension\\backend\\";
+	std::string directoryPath = "D:\\Old-Projects\\Charles-University\\csv-query-extension\\backend-entry-point\\";
 
 	std::ifstream inFile;
 	FileHelper::open_file_to_read(directoryPath, "input.csv", inFile);
