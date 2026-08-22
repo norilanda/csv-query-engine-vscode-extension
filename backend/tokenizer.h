@@ -14,6 +14,7 @@ private:
     size_t currentPos_;
     bool digitFound_;
     bool letterFound_;
+    bool minusFound_;
     size_t tokenStart_;
 
 
@@ -23,6 +24,7 @@ public:
 		currentPos_(0),
 		digitFound_(false),
 		letterFound_(false),
+		minusFound_(false),
 		tokenStart_(std::string::npos) { }
 
 	std::vector<Token> retrieve_tokens();
@@ -30,6 +32,7 @@ public:
 private:
 	void process_digit();
 	void process_letter();
+	void process_minus();
 	void process_decimal_point();
 	void process_string_literal();
 	bool process_if_current_char_is_operator_token();

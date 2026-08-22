@@ -17,6 +17,11 @@ QueryAST Parser::parse()
         parseLimit(ast);
     }
 
+    if (peek().type != TokenType::END_OF_FILE)
+    {
+        throw ParserException(EXPECT_END_OF_QUERY_ERROR);
+	}
+
     return ast;
 }
 
@@ -54,6 +59,10 @@ void Parser::parseLimit(QueryAST& ast)
     if (limitLiteral != std::floor(limitLiteral)) {
         throw ParserException(EXPECT_INTEGER_LITERAL_ERROR);
     }
+
+    if (limitLiteral < 0) {
+        throw ParserException(LIMIT_SHOULD_BE_POSITIVE_ERROR);
+	}
 
     ast.limit = limitLiteral;
 }

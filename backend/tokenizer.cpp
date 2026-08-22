@@ -25,6 +25,11 @@ std::vector<Token> Tokenizer::retrieve_tokens()
             process_decimal_point();
             continue;
         }
+        else if (currentChar == MINUS)
+        {
+            process_minus();
+            continue;
+        }
         else if (std::isalpha(currentChar) || currentChar == UNDERSCORE)
         {
             process_letter();
@@ -65,6 +70,21 @@ inline void Tokenizer::process_digit()
 inline void Tokenizer::process_letter()
 {
     letterFound_ = true;
+
+    if (tokenStart_ == std::string::npos) {
+        tokenStart_ = currentPos_;
+    }
+
+    ++currentPos_;
+}
+
+inline void Tokenizer::process_minus()
+{
+    if (minusFound_) {
+        throw TokenizerException(INVALID_NUMBER_ERROR);
+	}
+
+    minusFound_ = true;
 
     if (tokenStart_ == std::string::npos) {
         tokenStart_ = currentPos_;
@@ -146,6 +166,7 @@ inline void Tokenizer::process_token_if_needed()
     tokenStart_ = std::string::npos;
     digitFound_ = false;
     letterFound_ = false;
+	minusFound_ = false;
 }
 
 inline void Tokenizer::process_letters_token(std::string_view tokenValue)

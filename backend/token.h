@@ -10,6 +10,7 @@
 constexpr char STRING_LITERAL_INDICATOR = '\'';
 constexpr char DECIMAL_POINT = '.';
 constexpr char UNDERSCORE = '_';
+constexpr char MINUS = '-';
 
 enum class TokenType
 {
