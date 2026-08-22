@@ -10,13 +10,10 @@
 #include "../backend/query_executor.h"
 #include "../backend/query_exception.h"
 
-// --- Helper Function ---
-// This takes a query and CSV string, runs your engine, and returns the output string.
 std::string executeQuery(const std::string& query, const std::string& csvData) {
     std::stringstream inputStream(csvData);
     std::stringstream outputStream;
     
-    // Extract header for Binder
     std::string header;
     std::getline(inputStream, header, '\n');
 

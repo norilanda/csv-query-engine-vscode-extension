@@ -13,17 +13,19 @@ std::vector<Token> Tokenizer::retrieve_tokens()
 
     while (currentPos_ != input_.size())
     {
-        if (std::isdigit(input_[currentPos_]))
+		char currentChar = input_[currentPos_];
+
+        if (std::isdigit(currentChar))
         {
             process_digit();
             continue;
         }
-        else if (input_[currentPos_] == DECIMAL_POINT)
+        else if (currentChar == DECIMAL_POINT)
         {
             process_decimal_point();
             continue;
         }
-        else if (std::isalpha(input_[currentPos_]))
+        else if (std::isalpha(currentChar) || currentChar == UNDERSCORE)
         {
             process_letter();
             continue;
@@ -33,7 +35,7 @@ std::vector<Token> Tokenizer::retrieve_tokens()
 
         if (process_if_current_char_is_operator_token())
         { }
-        else if (input_[currentPos_] == STRING_LITERAL_INDICATOR)
+        else if (currentChar == STRING_LITERAL_INDICATOR)
         {
             process_string_literal();
         }

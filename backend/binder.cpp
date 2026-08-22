@@ -5,6 +5,7 @@
 
 #include "binder.h"
 #include "query_exception.h"
+#include "parse_helper.h"
 
 void Binder::bind_column_names_to_column_number()
 {
@@ -13,8 +14,7 @@ void Binder::bind_column_names_to_column_number()
     std::string column;
 
     while (std::getline(stream, column, csvConfig_.fieldDelimeter)) {
-        // TODO: trim before pushing
-        allColumnNames.push_back(column);
+        allColumnNames.push_back(trim(column));
     }
 
     bind_select(allColumnNames);

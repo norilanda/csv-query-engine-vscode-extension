@@ -10,7 +10,6 @@ void QueryExecutor::outputSelectedFields(std::string& line)
     bool isFirstOutputField = true;
 
     while (std::getline(lineStream, field, csvConfig_.fieldDelimeter)) {
-        // TODO: trim before pushing
         auto it = std::ranges::find(ast_.indicesOfColumnsToSelect, fieldIndex);
 
         if (ast_.selectAll || it != ast_.indicesOfColumnsToSelect.end()) {
