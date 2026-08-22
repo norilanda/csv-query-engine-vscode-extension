@@ -7,7 +7,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "backend", "backend.vcxproj"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "backend-tests", "..\backend-tests\backend-tests.vcxproj", "{5BA27396-7C23-4670-ABAD-246E6BD4C993}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "backend-entry-point", "..\backend-entry-point\backend-entry-point.vcxproj", "{2AF0A418-4688-419F-BD69-C0063640D814}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "backend-query-csv", "..\backend-entry-point\backend-entry-point.vcxproj", "{2AF0A418-4688-419F-BD69-C0063640D814}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "backend-query-header", "..\backend-query-header\backend-query-header.vcxproj", "{95859CA4-5000-44B6-B938-57F4CA398C2C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,14 @@ Global
 		{2AF0A418-4688-419F-BD69-C0063640D814}.Release|x64.Build.0 = Release|x64
 		{2AF0A418-4688-419F-BD69-C0063640D814}.Release|x86.ActiveCfg = Release|Win32
 		{2AF0A418-4688-419F-BD69-C0063640D814}.Release|x86.Build.0 = Release|Win32
+		{95859CA4-5000-44B6-B938-57F4CA398C2C}.Debug|x64.ActiveCfg = Debug|x64
+		{95859CA4-5000-44B6-B938-57F4CA398C2C}.Debug|x64.Build.0 = Debug|x64
+		{95859CA4-5000-44B6-B938-57F4CA398C2C}.Debug|x86.ActiveCfg = Debug|Win32
+		{95859CA4-5000-44B6-B938-57F4CA398C2C}.Debug|x86.Build.0 = Debug|Win32
+		{95859CA4-5000-44B6-B938-57F4CA398C2C}.Release|x64.ActiveCfg = Release|x64
+		{95859CA4-5000-44B6-B938-57F4CA398C2C}.Release|x64.Build.0 = Release|x64
+		{95859CA4-5000-44B6-B938-57F4CA398C2C}.Release|x86.ActiveCfg = Release|Win32
+		{95859CA4-5000-44B6-B938-57F4CA398C2C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

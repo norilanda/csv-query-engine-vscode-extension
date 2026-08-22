@@ -16,6 +16,10 @@
       {
         "command": "csv-query-extension.queryCsv",
         "title": "Query CSV File"
+      },
+      {
+        "command": "csv-query-extension.queryHeader",
+        "title": "Query CSV Header"
       }
     ]
   },
