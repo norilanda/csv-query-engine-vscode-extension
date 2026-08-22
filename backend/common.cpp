@@ -25,3 +25,10 @@ std::string get_field_value_by_index(char fieldDelimeter, const std::string& lin
 
     return field;
 }
+
+std::string get_header(char lineDelimeter, std::istream& inputStream)
+{
+    std::string header;
+    std::getline(inputStream, header, lineDelimeter);
+    return header;
+}

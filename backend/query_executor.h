@@ -12,11 +12,12 @@ private:
 	CsvConfig csvConfig_;
 	std::istream& inputStream_;
 	std::ostream& outputStream_;
+	std::string& header_;
 	size_t linesInOutput_ = 0;
 
 public:
-	QueryExecutor(QueryAST& ast, CsvConfig csvConfig, std::istream& inputStream, std::ostream& outputStream)
-		: ast_(ast), csvConfig_(csvConfig), inputStream_(inputStream), outputStream_(outputStream) { }
+	QueryExecutor(QueryAST& ast, CsvConfig csvConfig, std::istream& inputStream, std::ostream& outputStream, std::string& header)
+		: ast_(ast), csvConfig_(csvConfig), inputStream_(inputStream), outputStream_(outputStream), header_(header) { }
 
 	void run();
 

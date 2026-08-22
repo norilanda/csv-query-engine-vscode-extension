@@ -34,9 +34,7 @@ void QueryExecutor::run()
 {
     std::string line;
 
-    // header
-    std::getline(inputStream_, line, csvConfig_.lineDelimeter);
-    outputSelectedFields(line);
+    outputSelectedFields(header_);
 
     while (std::getline(inputStream_, line, csvConfig_.lineDelimeter))
     {

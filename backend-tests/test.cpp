@@ -19,10 +19,6 @@ std::string executeQuery(const std::string& query, const std::string& csvData) {
     // Extract header for Binder
     std::string header;
     std::getline(inputStream, header, '\n');
-    
-    // Reset stream for Executor
-    inputStream.clear();
-    inputStream.seekg(0, std::ios::beg);
 
     CsvConfig config;
     
@@ -35,7 +31,7 @@ std::string executeQuery(const std::string& query, const std::string& csvData) {
     Binder binder(ast, config, header);
     binder.bind_column_names_to_column_number();
     
-    QueryExecutor executor(ast, config, inputStream, outputStream);
+    QueryExecutor executor(ast, config, inputStream, outputStream, header);
     executor.run();
 
     return outputStream.str();
