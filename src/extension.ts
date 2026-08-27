@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
-import { exec } from 'child_process';
+import { execFile } from 'child_process';
 import { queryCsvBackendFileName, queryHeaderBackendFileName } from './constants';
 
 const getBackendExecutablePath = (context: vscode.ExtensionContext, backendFileName: string): string => {
@@ -73,17 +73,13 @@ export function activate(context: vscode.ExtensionContext) {
 
         const cppExecutable = getBackendExecutablePath(context, queryCsvBackendFileName);
 
-        // Escaping double quotes inside the query so the CLI shell interprets it correctly
-        const escapedQuery = userQuery.replace(/"/g, '\\"');
-        const command = `"${cppExecutable}" "${inputFilePath}" "${outputFilePath}" "${escapedQuery}"`;
-
         vscode.window.withProgress({
             location: vscode.ProgressLocation.Notification,
             title: 'Executing CSV query...',
             cancellable: false
         }, () => {
             return new Promise<void>((resolve) => {
-                exec(command, (error, stdout, stderr) => {
+                execFile(cppExecutable, [inputFilePath, outputFilePath, userQuery], (error, stdout, stderr) => {
                     if (error) {
                         vscode.window.showErrorMessage(`Query Failed: ${stderr.trim() || error.message}`);
                         resolve();
@@ -111,15 +107,13 @@ export function activate(context: vscode.ExtensionContext) {
 
         const cppExecutable = getBackendExecutablePath(context, queryHeaderBackendFileName);
 
-        const command = `"${cppExecutable}" "${inputFilePath}"`;
-
         vscode.window.withProgress({
             location: vscode.ProgressLocation.Notification,
             title: 'Querying CSV header...',
             cancellable: false
         }, () => {
             return new Promise<void>((resolve) => {
-                exec(command, (error, stdout, stderr) => {
+                execFile(cppExecutable, [inputFilePath], (error, stdout, stderr) => {
                     if (error) {
                         vscode.window.showErrorMessage(`Header Query Failed: ${stderr.trim() || error.message}`);
                         resolve();

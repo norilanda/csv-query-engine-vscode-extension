@@ -4,40 +4,36 @@
 
 #include "common.h"
 
-// TODO: maybe create some helper?
-std::string get_field_value_by_index(char fieldDelimeter, const std::string& line, size_t columnIndex)
+std::string_view get_field_view_by_index(char fieldDelimiter, std::string_view line, size_t targetIndex)
 {
-    std::string field;
-    std::stringstream lineAsStream(line);
+    size_t start = 0;
+    size_t currentIndex = 0;
 
-    size_t currentFieldNumber = 0;
-    while (std::getline(lineAsStream, field, fieldDelimeter))
+    for (size_t i = 0; i <= line.size(); ++i)
     {
-        if(currentFieldNumber == columnIndex)
+        if (i == line.size() || line[i] == fieldDelimiter)
         {
-            break;
+            if (currentIndex == targetIndex) {
+                return line.substr(start, i - start);
+            }
+            currentIndex++;
+            start = i + 1;
         }
-
-        ++currentFieldNumber;
     }
-        
-    if (currentFieldNumber != columnIndex) {
-        throw std::exception(COLUMN_NOT_EXISTS);
-    }
-
-    return field;
+    throw std::runtime_error(COLUMN_NOT_EXISTS);
 }
 
-std::string get_header(char lineDelimeter, std::istream& inputStream)
+std::string get_header(char lineDelimiter, std::istream& inputStream)
 {
     std::string header;
-    std::getline(inputStream, header, lineDelimeter);
+    std::getline(inputStream, header, lineDelimiter);
     return header;
 }
 
 std::string trim(const std::string& str)
 {
-	return trim(std::string_view(str)).data();
+    std::string_view sv = trim(std::string_view(str));
+    return std::string(sv);
 }
 
 std::string_view trim(std::string_view str)

@@ -29,7 +29,7 @@ std::string executeQuery(const std::string& query, const std::string& csvData) {
 
 	Selector selector(ast, config, outputStream);
 
-	ExternalSorter externalSorter(ast.orderByItems, config.fieldDelimeter, selector);
+	ExternalSorter externalSorter(ast.orderByItems, config.fieldDelimiter, selector);
     
     QueryExecutor executor(ast, config, inputStream, header, std::move(externalSorter), selector);
     executor.run();

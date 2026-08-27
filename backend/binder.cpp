@@ -13,7 +13,7 @@ void Binder::bind_column_names_to_column_number()
     std::stringstream stream(header_);
     std::string column;
 
-    while (std::getline(stream, column, csvConfig_.fieldDelimeter)) {
+    while (std::getline(stream, column, csvConfig_.fieldDelimiter)) {
         allColumnNames.push_back(trim(column));
     }
 

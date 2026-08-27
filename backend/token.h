@@ -2,6 +2,7 @@
 #define TOKEN_H_
 
 #include <string>
+#include <string_view>
 #include <map>
 #include <vector>
 #include <tuple>
@@ -75,7 +76,7 @@ inline std::vector<std::tuple<std::string, TokenType>> operatorsTokenTypeList {
 	{ ">", TokenType::GREATER_THAN },
 };
 
-using TokenValue = std::variant<std::monostate, std::string, double, bool>;
+using TokenValue = std::variant<std::monostate, std::string, std::string_view, double, bool>;
 
 class Token {
 public:

@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) try {
 	FileHelper::create_and_open_file_to_write(outputFilePath, outFile);
 
     CsvConfig config;
-    std::string header = get_header(config.lineDelimeter, inFile);
+    std::string header = get_header(config.lineDelimiter, inFile);
 
     Tokenizer tokenier(queryInput);
     auto tokens = tokenier.retrieve_tokens();
@@ -42,7 +42,7 @@ int main(int argc, char* argv[]) try {
 
 	Selector selector(ast, config, outFile);
 
-	ExternalSorter externalSorter(ast.orderByItems, config.fieldDelimeter, selector);
+	ExternalSorter externalSorter(ast.orderByItems, config.fieldDelimiter, selector);
 
     QueryExecutor executor(ast, config, inFile, header, std::move(externalSorter), selector);
 	executor.run();

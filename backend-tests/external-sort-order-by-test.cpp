@@ -36,7 +36,7 @@ std::string executeQueryExternalSort(const std::string& query, const std::string
 
     Selector selector(ast, config, outputStream);
 
-    ExternalSorter externalSorter(ast.orderByItems, config.fieldDelimeter, selector, memoryLimit);
+    ExternalSorter externalSorter(ast.orderByItems, config.fieldDelimiter, selector, memoryLimit);
     
     QueryExecutor executor(ast, config, inputStream, header, std::move(externalSorter), selector);
     executor.run();

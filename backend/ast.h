@@ -77,7 +77,7 @@ public:
 	std::vector<size_t> indicesOfColumnsToSelect;
 	std::unique_ptr<Expression> whereRoot;
 	std::vector<OrderByItem> orderByItems;
-	std::optional<int> limit;
+	std::optional<size_t> limit;
 };
 
 template<typename T>

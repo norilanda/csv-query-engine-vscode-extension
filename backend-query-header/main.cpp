@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) try {
 	FileHelper::open_file_to_read(inputFilePath, inFile);
 
     CsvConfig config;
-    std::string header = get_header(config.lineDelimeter, inFile);
+    std::string header = get_header(config.lineDelimiter, inFile);
 
 	std::cout << header << std::endl;
 }

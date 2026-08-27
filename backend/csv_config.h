@@ -8,11 +8,11 @@ constexpr char DEFAULT_FIELD_DELIM = ',';
 
 struct CsvConfig {
 public:
-	const char lineDelimeter;
-	const char fieldDelimeter;
+	const char lineDelimiter;
+	const char fieldDelimiter;
 
 	CsvConfig(char lineDel = DEFAULT_LINE_DELIM, char fieldDel = DEFAULT_FIELD_DELIM)
-		: lineDelimeter(lineDel), fieldDelimeter(fieldDel) { };
+		: lineDelimiter(lineDel), fieldDelimiter(fieldDel) { };
 };
 
 #endif // !CSV_CONFIG_H_

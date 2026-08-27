@@ -21,7 +21,7 @@ void QueryExecutor::runWithoutOrderBy()
 {
     std::string line;
 
-    while (std::getline(inputStream_, line, csvConfig_.lineDelimeter))
+    while (std::getline(inputStream_, line, csvConfig_.lineDelimiter))
     {
         if (passesWhereClause(line)) {
             selector_.outputSelectedFields(line);
@@ -39,7 +39,7 @@ void QueryExecutor::runWithOrderBy()
 {
     std::string line;
 
-    while (std::getline(inputStream_, line, csvConfig_.lineDelimeter))
+    while (std::getline(inputStream_, line, csvConfig_.lineDelimiter))
     {
         if (passesWhereClause(line)) {
             sorter_.addRow(std::move(line));
@@ -54,7 +54,7 @@ bool QueryExecutor::passesWhereClause(const std::string& line)
     bool passesWhereClause = true; 
 
     if (ast_.whereRoot) {
-        TokenValue result = ast_.whereRoot->evaluate(line, csvConfig_.fieldDelimeter);
+        TokenValue result = ast_.whereRoot->evaluate(line, csvConfig_.fieldDelimiter);
             
         if (std::holds_alternative<bool>(result)) {
             passesWhereClause = std::get<bool>(result);

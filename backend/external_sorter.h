@@ -97,7 +97,7 @@ public:
 		: runsFileManager_(tempDirectory), comparator_(orderBy, fieldDelimiter), selector_(selector), memoryLimitBytes_(memory_limit_bytes) { }
 
     void addRow(std::string&& row);
-    void mergeRunsAndOutputResult(std::optional<int> limit);
+    void mergeRunsAndOutputResult(std::optional<size_t> limit);
 
 private:
     void flushRun();

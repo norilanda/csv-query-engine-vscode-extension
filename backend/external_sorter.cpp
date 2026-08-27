@@ -8,8 +8,8 @@
 bool RowComparator::operator()(const std::string& row1, const std::string& row2) const
 {
     for (const auto& item : orderBy_) {
-        std::string val1 = get_field_value_by_index(fieldDelimiter_, row1, item.columnIndex);
-        std::string val2 = get_field_value_by_index(fieldDelimiter_, row2, item.columnIndex);
+        std::string_view val1 = get_field_view_by_index(fieldDelimiter_, row1, item.columnIndex);
+        std::string_view val2 = get_field_view_by_index(fieldDelimiter_, row2, item.columnIndex);
 
         if (val1 == val2) continue;
 
@@ -56,7 +56,7 @@ void ExternalSorter::addRow(std::string&& row)
     }
 }
 
-void ExternalSorter::mergeRunsAndOutputResult(std::optional<int> limit)
+void ExternalSorter::mergeRunsAndOutputResult(std::optional<size_t> limit)
 {
     if (!runsFileManager_.hasRuns())
     {

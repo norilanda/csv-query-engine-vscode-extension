@@ -25,7 +25,7 @@ void IdentifierExpression::bind(const std::vector<std::string>& allColumnNames) 
 }
 
 TokenValue IdentifierExpression::evaluate(const std::string& line, char fieldDelimiter) const {
-    return get_field_value_by_index(fieldDelimiter, line, columnIndex);
+    return get_field_view_by_index(fieldDelimiter, line, columnIndex);
 }
 
 // --- Binary Expression ---
@@ -68,23 +68,35 @@ TokenValue BinaryExpression::evaluate(const std::string& line, char fieldDelimit
 
 bool BinaryExpression::isDoubleCompare(const TokenValue& leftVal, const TokenValue& rightVal, double& l, double& r) const
 {
-    // Coerce to double if one side is double and the other side is a string (e.g., from CSV Identifier)
-    if (std::holds_alternative<double>(leftVal) && std::holds_alternative<double>(rightVal)) {
+    if (std::holds_alternative<double>(leftVal) && std::holds_alternative<double>(rightVal))
+    {
         l = std::get<double>(leftVal);
         r = std::get<double>(rightVal);
         return true;
-    } else if (std::holds_alternative<std::string>(leftVal) && std::holds_alternative<double>(rightVal)) {
-        try {
-            l = std::stod(std::get<std::string>(leftVal));
-            r = std::get<double>(rightVal);
-            return true;
-        } catch (...) { /* Not a number, fallback to string compare */ }
-    } else if (std::holds_alternative<double>(leftVal) && std::holds_alternative<std::string>(rightVal)) {
-        try {
-            l = std::get<double>(leftVal);
-            r = std::stod(std::get<std::string>(rightVal));
-            return true;
-        } catch (...) { /* Not a number, fallback to string compare */ }
+    }
+    else if (std::holds_alternative<double>(rightVal))
+    {
+        r = std::get<double>(rightVal);
+        if (std::holds_alternative<std::string>(leftVal))
+        {
+            return tryParseDouble(std::get<std::string>(leftVal), l);
+        }
+        else if (std::holds_alternative<std::string_view>(leftVal))
+        {
+            return tryParseDouble(std::get<std::string_view>(leftVal), l);
+        }
+    }
+    else if (std::holds_alternative<double>(leftVal))
+    {
+        l = std::get<double>(leftVal);
+        if (std::holds_alternative<std::string>(rightVal))
+        {
+            return tryParseDouble(std::get<std::string>(rightVal), r);
+        }
+        else if (std::holds_alternative<std::string_view>(rightVal))
+        {
+            return tryParseDouble(std::get<std::string_view>(rightVal), r);
+        }
     }
 
     return false;
@@ -94,6 +106,9 @@ std::string BinaryExpression::extractString(const TokenValue& val) const
 {
     if (std::holds_alternative<std::string>(val))
         return std::get<std::string>(val);
+
+    if (std::holds_alternative<std::string_view>(val))
+        return std::string(std::get<std::string_view>(val));
 
     if (std::holds_alternative<double>(val))
         return std::to_string(std::get<double>(val));
