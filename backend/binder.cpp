@@ -5,7 +5,7 @@
 
 #include "binder.h"
 #include "query_exception.h"
-#include "parse_helper.h"
+#include "common.h"
 
 void Binder::bind_column_names_to_column_number()
 {
@@ -22,6 +22,10 @@ void Binder::bind_column_names_to_column_number()
     if (ast_.whereRoot) {
         ast_.whereRoot->bind(allColumnNames);
     }
+
+    if (!ast_.orderByItems.empty()) {
+		bind_order_by(allColumnNames);
+	}
 }
 
 void Binder::bind_select(std::vector<std::string>& allColumnNames)
@@ -40,3 +44,18 @@ void Binder::bind_select(std::vector<std::string>& allColumnNames)
     }
 }
 
+void Binder::bind_order_by(std::vector<std::string>& allColumnNames)
+{
+    for (auto& orderByItem : ast_.orderByItems)
+    {
+        auto it = std::ranges::find(allColumnNames, orderByItem.columnName);
+
+        if (it != allColumnNames.end())
+        {
+            orderByItem.columnIndex = std::distance(allColumnNames.begin(), it);
+        }
+        else {
+            throw BinderException(INVALID_COLUMN_NAME_ERROR);
+        }
+    }
+}

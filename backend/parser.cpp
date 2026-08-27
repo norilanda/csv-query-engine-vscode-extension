@@ -17,6 +17,11 @@ QueryAST Parser::parse()
         parseLimit(ast);
     }
 
+    if (peek().type == TokenType::ORDER)
+    {
+        parseOrderBy(ast);
+    }
+
     if (peek().type != TokenType::END_OF_FILE)
     {
         throw ParserException(EXPECT_END_OF_QUERY_ERROR);
@@ -145,4 +150,37 @@ std::unique_ptr<Expression> Parser::parsePrimary()
     }
     
     throw ParserException(EXPECT_EXPRESSION_ERROR);
+}
+
+void Parser::parseOrderBy(QueryAST& ast)
+{
+   consume(TokenType::ORDER, INVALID_ORDER_BY_ERROR);
+   consume(TokenType::BY, INVALID_ORDER_BY_ERROR);
+
+   auto consumeOrderByItem = [&]()
+   {
+       std::string columnName = consume(TokenType::IDENTIFIER, EXPECT_COLUMN_NAME_ERROR).lexeme;
+       bool ascending = true;
+
+       if (peek().type == TokenType::ASC)
+       {
+           move_next();
+       }
+       else if (peek().type == TokenType::DESC)
+       {
+           move_next();
+           ascending = false;
+       }
+
+       ast.orderByItems.emplace_back(std::move(columnName), ascending);
+   };
+
+   consumeOrderByItem();
+
+   while (peek().type == TokenType::COMMA)
+   {
+	   move_next();
+
+       consumeOrderByItem();
+   }
 }

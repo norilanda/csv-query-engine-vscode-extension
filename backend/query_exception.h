@@ -13,6 +13,7 @@ constexpr char MISSING_LIMIT_ERROR[] = "Expect LIMIT keyword";
 constexpr char MISSING_NUMBER_LITERAL_ERROR[] = "Expect number literal";
 constexpr char EXPECT_INTEGER_LITERAL_ERROR[] = "Expect integer number";
 constexpr char MISSING_WHERE_ERROR[] = "Expect WHERE keyword";
+constexpr char INVALID_ORDER_BY_ERROR[] = "Expect ORDER BY keyword";
 constexpr char EXPECT_EXPRESSION_ERROR[] = "Expect expression";
 constexpr char LIMIT_SHOULD_BE_POSITIVE_ERROR[] = "Limit should be positive";
 constexpr char EXPECT_END_OF_QUERY_ERROR[] = "Expect end of query";

@@ -20,6 +20,10 @@ enum class TokenType
 	LIMIT,
 	AND,
 	OR,
+	ORDER,
+	BY,
+	ASC,
+	DESC,
 
 	// Literals/Identifiers
 	IDENTIFIER,
@@ -50,6 +54,10 @@ inline std::map<std::string, TokenType> keywordTokenTypeMap {
 	{ "LIMIT", TokenType::LIMIT },
 	{ "AND", TokenType::AND },
 	{ "OR", TokenType::OR },
+	{ "ORDER", TokenType::ORDER },
+	{ "BY", TokenType::BY },
+	{ "ASC", TokenType::ASC },
+	{ "DESC", TokenType::DESC },
 	{ TRUE_LITERAL, TokenType::BOOLEAN },
 	{ FALSE_LITERAL, TokenType::BOOLEAN },
 };

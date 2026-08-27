@@ -41,6 +41,7 @@ private:
 
 	void parseSelect(QueryAST& ast);
 	void parseWhere(QueryAST& ast);
+	void parseOrderBy(QueryAST& ast);
 	void parseLimit(QueryAST& ast);
 
     std::unique_ptr<Expression> parseExpression();

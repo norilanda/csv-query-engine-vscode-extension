@@ -1,57 +1,30 @@
 #include <sstream>
 
 #include "query_executor.h"
-
-void QueryExecutor::outputSelectedFields(std::string& line)
-{
-    std::string field;
-    std::stringstream lineStream(line);
-    size_t fieldIndex = 0;
-    bool isFirstOutputField = true;
-
-    while (std::getline(lineStream, field, csvConfig_.fieldDelimeter)) {
-        auto it = std::ranges::find(ast_.indicesOfColumnsToSelect, fieldIndex);
-
-        if (ast_.selectAll || it != ast_.indicesOfColumnsToSelect.end()) {
-
-            if (!isFirstOutputField) {
-                outputStream_ << csvConfig_.fieldDelimeter;
-            }
-
-            outputStream_ << field;
-
-            isFirstOutputField = false;
-        }
-
-        ++fieldIndex;
-    }
-
-    outputStream_ << csvConfig_.lineDelimeter;
-}
+#include "external_sorter.h"
 
 void QueryExecutor::run()
 {
-    std::string line;
+    selector_.outputSelectedFields(header_);
 
-    outputSelectedFields(header_);
+    if (ast_.orderByItems.empty())
+    {
+        runWithoutOrderBy();
+    }
+    else
+    {
+        runWithOrderBy();
+	}
+}
+
+void QueryExecutor::runWithoutOrderBy()
+{
+    std::string line;
 
     while (std::getline(inputStream_, line, csvConfig_.lineDelimeter))
     {
-        bool passesWhereClause = true; 
-
-        if (ast_.whereRoot) {
-            TokenValue result = ast_.whereRoot->evaluate(line, csvConfig_.fieldDelimeter);
-            
-            if (std::holds_alternative<bool>(result)) {
-                passesWhereClause = std::get<bool>(result);
-            } else {
-                // If the statement evaluates to something non-boolean 
-                passesWhereClause = false;
-            }
-        }
-
-        if (passesWhereClause) {
-            outputSelectedFields(line);
+        if (passesWhereClause(line)) {
+            selector_.outputSelectedFields(line);
 
             ++linesInOutput_;
 
@@ -60,4 +33,35 @@ void QueryExecutor::run()
             }
         }
     }
+}
+
+void QueryExecutor::runWithOrderBy()
+{
+    std::string line;
+
+    while (std::getline(inputStream_, line, csvConfig_.lineDelimeter))
+    {
+        if (passesWhereClause(line)) {
+            sorter_.addRow(std::move(line));
+        }
+    }
+
+    sorter_.mergeRunsAndOutputResult(ast_.limit);
+}
+
+bool QueryExecutor::passesWhereClause(const std::string& line)
+{
+    bool passesWhereClause = true; 
+
+    if (ast_.whereRoot) {
+        TokenValue result = ast_.whereRoot->evaluate(line, csvConfig_.fieldDelimeter);
+            
+        if (std::holds_alternative<bool>(result)) {
+            passesWhereClause = std::get<bool>(result);
+        } else {
+            passesWhereClause = false;
+        }
+    }
+
+    return passesWhereClause;
 }

@@ -42,8 +42,11 @@
     <ClCompile Include="ast.cpp">
       <Filter>Source Files\query</Filter>
     </ClCompile>
-    <ClCompile Include="parse_helper.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="external_sorter.cpp">
+      <Filter>Source Files\query</Filter>
+    </ClCompile>
+    <ClCompile Include="selector.cpp">
+      <Filter>Source Files\query</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -77,7 +80,10 @@
     <ClInclude Include="binder.h">
       <Filter>Header Files\query</Filter>
     </ClInclude>
-    <ClInclude Include="parse_helper.h">
+    <ClInclude Include="external_sorter.h">
+      <Filter>Header Files\query</Filter>
+    </ClInclude>
+    <ClInclude Include="selector.h">
       <Filter>Header Files\query</Filter>
     </ClInclude>
   </ItemGroup>

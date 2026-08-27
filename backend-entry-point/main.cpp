@@ -39,7 +39,12 @@ int main(int argc, char* argv[]) try {
     QueryAST ast = parser.parse();
     Binder binder(ast, config, header);
     binder.bind_column_names_to_column_number();
-    QueryExecutor executor(ast, config, inFile, outFile, header);
+
+	Selector selector(ast, config, outFile);
+
+	ExternalSorter externalSorter(ast.orderByItems, config.fieldDelimeter, selector);
+
+    QueryExecutor executor(ast, config, inFile, header, std::move(externalSorter), selector);
 	executor.run();
 
 	// ---------------------------

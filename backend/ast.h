@@ -57,12 +57,26 @@ public:
     std::string extractString(const TokenValue& val) const;
 };
 
+// ----------------------------------------------------------------
+
+struct OrderByItem {
+public:
+    size_t columnIndex;
+    bool ascending;
+	std::string columnName;
+	OrderByItem(std::string&& colName, bool asc) 
+        : columnIndex(std::string::npos), columnName(colName), ascending(asc) {}
+};
+
+// ----------------------------------------------------------------
+
 struct QueryAST {
 public:
 	bool selectAll = false;
 	std::vector<std::string> columnsToSelect;
 	std::vector<size_t> indicesOfColumnsToSelect;
 	std::unique_ptr<Expression> whereRoot;
+	std::vector<OrderByItem> orderByItems;
 	std::optional<int> limit;
 };
 

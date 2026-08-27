@@ -20,6 +20,7 @@ public:
 
 private:
 	void bind_select(std::vector<std::string>& allColumnNames);
+	void bind_order_by(std::vector<std::string>& allColumnNames);
 };
 
 #endif // !BINDER_H_

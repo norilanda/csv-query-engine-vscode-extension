@@ -26,8 +26,12 @@ std::string executeQuery(const std::string& query, const std::string& csvData) {
     
     Binder binder(ast, config, header);
     binder.bind_column_names_to_column_number();
+
+	Selector selector(ast, config, outputStream);
+
+	ExternalSorter externalSorter(ast.orderByItems, config.fieldDelimeter, selector);
     
-    QueryExecutor executor(ast, config, inputStream, outputStream, header);
+    QueryExecutor executor(ast, config, inputStream, header, std::move(externalSorter), selector);
     executor.run();
 
     return outputStream.str();
@@ -173,6 +177,66 @@ TEST(QueryEngineEndToEnd, CombinedWhereAndLimitShouldWork) {
         "city\n"
         "Prague\n"
         "London\n";
+        
+    EXPECT_EQ(executeQuery(query, DEFAULT_CSV), expected);
+}
+
+TEST(QueryEngineEndToEnd, OrderByShouldWork) {
+    std::string query = "SELECT city ORDER BY city";
+    std::string expected = 
+        "city\n"
+		"Brno\n"
+        "London\n"
+		"Oslo\n"
+        "Prague\n";
+        
+    EXPECT_EQ(executeQuery(query, DEFAULT_CSV), expected);
+}
+
+TEST(QueryEngineEndToEnd, OrderByAscShouldWork) {
+    std::string query = "SELECT city ORDER BY city ASC";
+    std::string expected = 
+        "city\n"
+		"Brno\n"
+        "London\n"
+		"Oslo\n"
+        "Prague\n";
+        
+    EXPECT_EQ(executeQuery(query, DEFAULT_CSV), expected);
+}
+
+TEST(QueryEngineEndToEnd, OrderByDecscShouldWork) {
+    std::string query = "SELECT city ORDER BY city DESC";
+    std::string expected = 
+        "city\n"
+		"Prague\n"
+        "Oslo\n"
+        "London\n"
+		"Brno\n";
+        
+    EXPECT_EQ(executeQuery(query, DEFAULT_CSV), expected);
+}
+
+TEST(QueryEngineEndToEnd, OrderByAscDescShouldWork) {
+    std::string query = "SELECT city ORDER BY city ASC, is_capital DESC";
+    std::string expected = 
+        "city\n"
+		"Brno\n"
+		"London\n"
+        "Oslo\n"
+		"Prague\n";
+        
+    EXPECT_EQ(executeQuery(query, DEFAULT_CSV), expected);
+}
+
+TEST(QueryEngineEndToEnd, OrderByDescAscShouldWork) {
+    std::string query = "SELECT city ORDER BY city DESC, is_capital ASC";
+    std::string expected = 
+        "city\n"
+		"Prague\n"
+        "Oslo\n"
+        "London\n"
+		"Brno\n";
         
     EXPECT_EQ(executeQuery(query, DEFAULT_CSV), expected);
 }
