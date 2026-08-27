@@ -12,14 +12,14 @@ QueryAST Parser::parse()
         parseWhere(ast);
     }
 
-    if (peek().type == TokenType::LIMIT)
-    {
-        parseLimit(ast);
-    }
-
     if (peek().type == TokenType::ORDER)
     {
         parseOrderBy(ast);
+    }
+
+    if (peek().type == TokenType::LIMIT)
+    {
+        parseLimit(ast);
     }
 
     if (peek().type != TokenType::END_OF_FILE)
