@@ -1,71 +1,104 @@
-# csv-query-extension README
+# CSV Query Engine & VS Code Extension
 
-This is the README for your extension "csv-query-extension". After writing up a brief description, we recommend including the following sections.
+Generated Doxygen documentation is available at [doc/html/index.html](./docs/html/index.html)
 
-## Features
+### Demo
+1. Handling small csv file:
+![](./images/demo-small-csv.gif)
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+2. Handing errors:
+![](./images/demo-error.gif)
 
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+3. Handing large csv files:
+![](./images/demo-large-csv.gif)
 
 ---
 
-## Following extension guidelines
+## 1. Features
+The description of features is provided in [CSV Query Engine VSCode Extension Specification](./CSV%20Query%20Engine%20VSCode%20Extension.md) file.
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+### Project Structure
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+#### Backend
+Contains 4 projects:
+- `backend` - main library with all the logic
+- `backend-entry-point` - entry point to run CSV file queries
+- `backend-query-header` - entry point to query the header
+- `backend-tests` - backend tests
 
-## Working with Markdown
+#### Frontend
+[`src`](./src/) folder contains extension logic
 
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
+---
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
+## 2. Building Backend
 
-## For more information
+### Prerequisites
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+- Visual Studio 2022 or later.
 
-**Enjoy!**
+### Building with Visual Studio
+
+1. Open solution in Visual Studio 2022 (or later version)
+2. Set the build configuration to **x64-Release** in the top toolbar dropdown.
+3. In the menu, go to **Build > Build All** (`Ctrl+Shift+B`)
+4. Executables will be placed in the build output directory (e.g., `backend/x64/Release/`).
+
+## 3. Running the CLI Executables
+
+Navigate to the folder that contains executable (e.g., `backend/x64/Release/`).
+
+### Querying a CSV file (`backend-query-csv`)
+
+```bash
+
+# Windows
+backend-query-csv.exe ../../../samples/employees.csv output.csv "SELECT name, salary WHERE salary > 50000 ORDER BY salary DESC LIMIT 5"
+
+# Linux
+backend-query-csv ../../../samples/employees.csv output.csv "SELECT name, salary WHERE salary > 50000 ORDER BY salary DESC LIMIT 5"
+
+```
+
+### Reading CSV Header (`backend-query-header`)
+
+```bash
+
+# Windows
+backend-query-header.exe ../../../samples/employees.csv
+
+# Linux
+backend-query-header ../../..samples/employees.csv
+
+```
+
+## 4. VS Code Extension Setup & Run
+
+### Prerequisites
+- Node.js (v18+) and npm
+- VS Code
+
+### Steps
+
+1. Open the project root in VS Code.
+2. Install dependencies:
+```bash
+npm install
+```
+3. Compile TypeScript:
+```bash
+npm run compile
+```
+4. Press `F5` to start a new **Extension Development Host** instance.
+5. In the new window:
+- Open a `.csv` file (e.g., `samples/employees.csv`).
+- Press `Ctrl+Shift+P` (or `Cmd+Shift+P`).
+- Run **Query CSV File** or **Query CSV Header**.
+
+## 5. Running Tests
+The backend project uses GoogleTest.
+
+1. Open solution in Visual Studio 2022 (or later version)
+2. Navigate to **View > Test Explorer**
+3. Use `Run` or `Run All Tests In View` buttons to run all the tests
+

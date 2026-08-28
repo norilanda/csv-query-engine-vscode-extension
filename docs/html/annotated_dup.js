@@ -1,0 +1,25 @@
+var annotated_dup =
+[
+    [ "BinaryExpression", "class_binary_expression.html", "class_binary_expression" ],
+    [ "Binder", "class_binder.html", "class_binder" ],
+    [ "BinderException", "class_binder_exception.html", "class_binder_exception" ],
+    [ "CsvConfig", "struct_csv_config.html", "struct_csv_config" ],
+    [ "Expression", "class_expression.html", "class_expression" ],
+    [ "ExternalSorter", "class_external_sorter.html", "class_external_sorter" ],
+    [ "FileHelper", "class_file_helper.html", "class_file_helper" ],
+    [ "HeapNode", "struct_heap_node.html", "struct_heap_node" ],
+    [ "IdentifierExpression", "class_identifier_expression.html", "class_identifier_expression" ],
+    [ "LiteralExpression", "class_literal_expression.html", "class_literal_expression" ],
+    [ "OrderByItem", "struct_order_by_item.html", "struct_order_by_item" ],
+    [ "Parser", "class_parser.html", "class_parser" ],
+    [ "ParserException", "class_parser_exception.html", "class_parser_exception" ],
+    [ "QueryAST", "struct_query_a_s_t.html", "struct_query_a_s_t" ],
+    [ "QueryException", "class_query_exception.html", "class_query_exception" ],
+    [ "QueryExecutor", "class_query_executor.html", "class_query_executor" ],
+    [ "RowComparator", "class_row_comparator.html", "class_row_comparator" ],
+    [ "RunsFileManager", "class_runs_file_manager.html", "class_runs_file_manager" ],
+    [ "Selector", "class_selector.html", "class_selector" ],
+    [ "Token", "class_token.html", "class_token" ],
+    [ "Tokenizer", "class_tokenizer.html", "class_tokenizer" ],
+    [ "TokenizerException", "class_tokenizer_exception.html", "class_tokenizer_exception" ]
+];
