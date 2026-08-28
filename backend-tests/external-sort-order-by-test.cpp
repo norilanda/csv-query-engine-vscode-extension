@@ -48,7 +48,6 @@ std::string generateBigCsv(int multiplier) {
     std::stringstream ss;
     ss << "city,weather,temperature,is_capital\n";
     for (int i = 0; i < multiplier; ++i) {
-        // use something dynamic or just duplicate it
         ss << "Prague,sun,20.5,TRUE\n";
         ss << "London,rain,15.2,TRUE\n";
         ss << "Brno,cloudy,18.0,FALSE\n";

@@ -4,6 +4,9 @@
 #include "ast.h"
 #include "csv_config.h"
 
+/** 
+ * Class responsible for binding abstract syntax tree identifiers to actual column indices.
+ */
 class Binder {
 private:
 	QueryAST& ast_;
@@ -12,9 +15,15 @@ private:
 
 
 public:
+	/** 
+	 * Constructs a new Binder.
+	 */
 	Binder(QueryAST& ast, CsvConfig& csvConfig, const std::string& header)
 		: ast_(ast), csvConfig_(csvConfig), header_(header) { }
 
+	/** 
+	 * Binds column names in the AST to their corresponding column indices.
+	 */
 	void bind_column_names_to_column_number();
 
 

@@ -7,15 +7,24 @@
 #include "ast.h"
 #include "query_exception.h"
 
+/** 
+ * Parses a sequence of tokens into a QueryAST.
+ */
 class Parser {
 private:
 	std::vector<Token> tokens_;
 	size_t current_ = 0;
 
 public:
+	/** 
+	 * Constructs a Parser from a vector of Tokens.
+	 */
 	Parser(const std::vector<Token>& tokens)
 		: tokens_(tokens) { }
 
+	/** 
+	 * Parses tokens into an AST representation.
+	 */
 	QueryAST parse();
 
 private:

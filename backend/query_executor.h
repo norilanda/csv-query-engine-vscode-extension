@@ -8,6 +8,9 @@
 #include "selector.h"
 #include "external_sorter.h"
 
+/** 
+ * Executes the compiled query expression over the dataset.
+ */
 class QueryExecutor {
 private:
 	QueryAST& ast_;
@@ -19,6 +22,9 @@ private:
 	size_t linesInOutput_ = 0;
 
 public:
+	/** 
+	 * Constructs a QueryExecutor.
+	 */
 	QueryExecutor(
 		QueryAST& ast,
 		CsvConfig csvConfig,
@@ -28,6 +34,9 @@ public:
 		Selector selector)
 		: ast_(ast), csvConfig_(csvConfig), inputStream_(inputStream), header_(header), sorter_(std::move(externalSorter)), selector_(selector) { }
 
+	/** 
+	 * Starts running the execution.
+	 */
 	void run();
 
 private:

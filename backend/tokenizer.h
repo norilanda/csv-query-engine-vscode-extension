@@ -6,19 +6,25 @@
 
 #include "token.h"
 
+/** 
+ * Splits an input query string into a sequence of Tokens.
+ */
 class Tokenizer {
 private:
 	std::string_view input_;
 
 	std::vector<Token> tokens_;
-    size_t currentPos_;
-    bool digitFound_;
-    bool letterFound_;
-    bool minusFound_;
-    size_t tokenStart_;
+	size_t currentPos_;
+	bool digitFound_;
+	bool letterFound_;
+	bool minusFound_;
+	size_t tokenStart_;
 
 
 public:
+	/** 
+	 * Constructs a Tokenizer from a query string.
+	 */
 	Tokenizer(std::string_view input)
 		: input_(input),
 		currentPos_(0),
@@ -27,6 +33,9 @@ public:
 		minusFound_(false),
 		tokenStart_(std::string::npos) { }
 
+	/** 
+	 * Scans the string and returns all lexical tokens.
+	 */
 	std::vector<Token> retrieve_tokens();
 
 private:

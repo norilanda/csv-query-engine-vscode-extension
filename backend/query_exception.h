@@ -20,8 +20,14 @@ constexpr char EXPECT_END_OF_QUERY_ERROR[] = "Expect end of query";
 
 constexpr char INVALID_COLUMN_NAME_ERROR[] = "Column name is not present in the header file";
 
+/** 
+ * Represents an error during query parsing or evaluation.
+ */
 class QueryException : public std::runtime_error {
 public:
+	/** 
+	 * Constructs a QueryException with an error message.
+	 */
 	QueryException(const std::string& message)
 		: std::runtime_error(message) { }	
 };

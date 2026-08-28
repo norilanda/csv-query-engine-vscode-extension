@@ -8,6 +8,9 @@
 #include "ast.h"
 #include "csv_config.h"
 
+/** 
+ * Selects and outputs fields based on the queried columns.
+ */
 class Selector
 {
 private:
@@ -17,9 +20,15 @@ private:
 	std::vector<std::string_view> fieldsCache_;
 
 public:
+	/** 
+	 * Constructs a Selector.
+	 */
 	Selector(QueryAST& ast, CsvConfig csvConfig, std::ostream& outputStream)
 		: ast_(ast), csvConfig_(csvConfig), outputStream_(outputStream) {}
 
+	/** 
+	 * Outputs selected fields for a given line.
+	 */
 	void outputSelectedFields(std::string_view line);
 };
 
